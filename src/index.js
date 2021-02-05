@@ -1,4 +1,4 @@
-console.log('First web service starting up ...');
+// console.log('First web service starting up ...');
 
 const name = 'fred';
 const car = {
@@ -64,13 +64,13 @@ const onRequest = (request, response) => {
   // console.log(request.headers);
   const parsedUrl = url.parse(request.url);
   const { pathname } = parsedUrl;
-  console.log('parsedUrl=', parsedUrl);
-  console.log('pathname=', pathname);
+  // console.log('parsedUrl=', parsedUrl);
+  // console.log('pathname=', pathname);
 
   const params = query.parse(parsedUrl.query);
   const { max } = params;
-  console.log('params=', params);
-  console.log('max=', max);
+  // console.log('params=', params);
+  // console.log('max=', max);
 
   if (pathname === '/') {
     response.writeHead(200, {
