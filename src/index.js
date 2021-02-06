@@ -82,7 +82,7 @@ const onRequest = (request, response) => {
     response.writeHead(200, {
       'Content-Type': 'application/json',
     });
-    response.write(getRandomNumberJSON(10));
+    response.write(getRandomNumberJSON(max));
     response.end();
   } else {
     response.writeHead(404, {
