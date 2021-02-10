@@ -1,25 +1,18 @@
-// console.log('First web service starting up ...');
-
-const jsonHandler = require('./jsonResponses.js');
-const htmlHandler = require('./htmlResponses.js');
-
-const name = 'fred';
-const car = {
-  make: 'Ford',
-};
-
-const urlStruct = {
-  '/': htmlHandler.getIndexResponse,
-  '/random-number': jsonHandler.getRandomNumberResponse,
-  notFound: htmlHandler.get404Response
-}
-
 // 1 - pull in the HTTP server module
 const http = require('http');
 
 // 2 - pull in URL and query modules (for URL parsing)
 const url = require('url');
 const query = require('querystring');
+
+const htmlHandler = require('./htmlResponses.js');
+const jsonHandler = require('./jsonResponses.js');
+
+const urlStruct = {
+  '/': htmlHandler.getIndexResponse,
+  '/random-number': jsonHandler.getRandomNumberResponse,
+  notFound: htmlHandler.get404Response,
+};
 
 // 3 - locally this will be 3000, on Heroku it will be assigned
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -31,20 +24,20 @@ const onRequest = (request, response) => {
   // console.log(request.headers);
   const parsedUrl = url.parse(request.url);
   const {
-    pathname
+    pathname,
   } = parsedUrl;
   // console.log('parsedUrl=', parsedUrl);
   // console.log('pathname=', pathname);
 
   const params = query.parse(parsedUrl.query);
-  //const {max} = params;
+  // const {max} = params;
   // console.log('params=', params);
   // console.log('max=', max);
 
   if (urlStruct[pathname]) {
     urlStruct[pathname](request, response, params);
   } else {
-    urlStruct['notFound'](request, response, params);
+    urlStruct.notFound(request, response, params);
   }
 };
 
